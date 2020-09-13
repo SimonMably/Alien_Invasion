@@ -8,7 +8,7 @@ class AlienInvasion:
     """Overall class to manage game assets and behaviour."""
 
     def __init__(self):
-        """Initialise the game, and create game resouces."""
+        """Initialise the game, and create game resources."""
         pygame.init()
         self.settings = Settings()
         
