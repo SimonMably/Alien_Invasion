@@ -71,20 +71,27 @@ class AlienInvasion:
         """Start a new game when the player presses Play."""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
-            # Reset the game statistics.
-            self.stats.reset_stats()
-            self.stats.game_active = True
+            self._start_game()
 
-            # Get rid of any remaining aliens and bullets.
-            self.aliens.empty()
-            self.bullets.empty()
+    def _start_game(self):
+        """
+        Start a new game when the player presses the 'P' button on the 
+        keyboard or the Play button in game.
+        """
+        # Reset the game statistics.
+        self.stats.reset_stats()
+        self.stats.game_active = True
 
-            # Create a new fleet and center the ship.
-            self._create_fleet()
-            self.ship.center_ship()
+        # Get rid of any remaining aliens and bullets.
+        self.aliens.empty()
+        self.bullets.empty()
 
-            # Hide the mouse cursor.
-            pygame.mouse.set_visible(False)
+        # Create a new fleet and center the ship.
+        self._create_fleet()
+        self.ship.center_ship()
+
+        # Hide the mouse cursor.
+        pygame.mouse.set_visible(False)
 
     def _check_keydown_events(self, event):
         """Respond to keypresses."""
@@ -92,11 +99,16 @@ class AlienInvasion:
             # Move the ship to the right.
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
-            # Move the ship to the left
+            # Move the ship to the left.
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
+            # Press 'q' on keyboard to exit the game.
             sys.exit()
+        elif event.key == pygame.K_p:
+            # Press 'p' on keyboard at the start screen to play.
+            self._start_game()
         elif event.key == pygame.K_SPACE:
+            # Press the spacebar to fire bullets.
             self._fire_bullet()
 
     def _check_keyup_events(self, event):
@@ -134,6 +146,7 @@ class AlienInvasion:
             # Destroy existing bullets and create a new fleet.
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _update_aliens(self):
         """
