@@ -130,6 +130,7 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+            self.bullet_sound()
             
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
@@ -154,6 +155,7 @@ class AlienInvasion:
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
             self.sb.check_high_score()
+            self.explosion_sound()
 
         if not self.aliens:
             # Destroy existing bullets and create a new fleet.
@@ -252,6 +254,16 @@ class AlienInvasion:
                 self._ship_hit()
                 break
 
+    def bullet_sound(self):
+        pygame.mixer.init()
+        pygame.mixer.music.load('sounds/gun_sound.mp3')
+        pygame.mixer.music.play()
+
+    def explosion_sound(self):
+        pygame.mixer.init()
+        pygame.mixer.music.load('sounds/retro_explosion_1.mp3')
+        pygame.mixer.music.play()
+
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
         self.screen.fill(self.settings.bg_colour)
@@ -273,149 +285,3 @@ if __name__ == '__main__':
     # Make a game instance, and run the game.
     ai = AlienInvasion()
     ai.run_game()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
